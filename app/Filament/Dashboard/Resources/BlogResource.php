@@ -2,16 +2,18 @@
 
 namespace App\Filament\Dashboard\Resources;
 
-use App\Filament\Dashboard\Resources\BlogResource\Pages;
-use App\Filament\Dashboard\Resources\BlogResource\RelationManagers;
-use App\Models\Blog;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\Blog;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\RichEditor;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Dashboard\Resources\BlogResource\Pages;
+use App\Filament\Dashboard\Resources\BlogResource\RelationManagers;
 
 class BlogResource extends Resource
 {
@@ -23,7 +25,8 @@ class BlogResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('title')->columnSpan(2),
+                RichEditor::make('description')->columnSpan(2),
             ]);
     }
 
