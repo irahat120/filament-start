@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Dashboard\Resources\BlogResource\Pages;
 use App\Filament\Dashboard\Resources\BlogResource\RelationManagers;
+use Filament\Tables\Columns\TextColumn;
 
 class BlogResource extends Resource
 {
@@ -34,7 +35,9 @@ class BlogResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('title'),
+                TextColumn::make('created_at')->since()->label('Created'),
+
             ])
             ->filters([
                 //
@@ -43,7 +46,7 @@ class BlogResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
