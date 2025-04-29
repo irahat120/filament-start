@@ -11,5 +11,5 @@ class Blog extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['title', 'description'];
+    protected $fillable = ['user_id','title', 'description'];
 }
