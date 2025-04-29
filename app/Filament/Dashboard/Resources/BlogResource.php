@@ -17,6 +17,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Dashboard\Resources\BlogResource\Pages;
 use App\Filament\Dashboard\Resources\BlogResource\RelationManagers;
+use Filament\Forms\Components\FileUpload;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\Section;
+use Filament\Tables\Columns\ImageColumn;
 
 class BlogResource extends Resource
 {
@@ -36,6 +41,7 @@ class BlogResource extends Resource
                         'Public' => 'Public',
                     ])->visibleOn('edit'),
                 RichEditor::make('description')->columnSpan(2)->required(),
+                FileUpload::make('images')->disk('public')->directory('images'),
             ]);
     }
 
@@ -45,6 +51,7 @@ class BlogResource extends Resource
             ->modifyQueryUsing(fn (Builder $query) => $query->where('user_id', auth()->user()->id))
             ->columns([
                 TextColumn::make('id'),
+                ImageColumn::make('images'),
                 TextColumn::make('title'),
                 TextColumn::make('visibility'),
                 TextColumn::make('created_at')->since()->label('Created'),
