@@ -25,7 +25,7 @@ class ViewBlog extends ViewRecord
     return $infolist
         ->schema([
             TextEntry::make('title')->columnSpan(2)->weight(FontWeight::Bold)->fontFamily(FontFamily::Mono),
-            TextEntry::make('description')
+            TextEntry::make('description')->html()
         ]);
 }
 }

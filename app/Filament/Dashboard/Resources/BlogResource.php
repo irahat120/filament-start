@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\RichEditor;
@@ -28,8 +29,13 @@ class BlogResource extends Resource
         return $form
             ->schema([
                 Hidden::make('user_id')->default(fn () => auth()->id()),
-                TextInput::make('title')->columnSpan(2),
-                RichEditor::make('description')->columnSpan(2),
+                TextInput::make('title')->required(),
+                Select::make('visibility')
+                    ->options([
+                        'Private' => 'Private',
+                        'Public' => 'Public',
+                    ])->visibleOn('edit'),
+                RichEditor::make('description')->columnSpan(2)->required(),
             ]);
     }
 
@@ -39,8 +45,8 @@ class BlogResource extends Resource
             ->modifyQueryUsing(fn (Builder $query) => $query->where('user_id', auth()->user()->id))
             ->columns([
                 TextColumn::make('id'),
-                TextColumn::make('user_id'),
                 TextColumn::make('title'),
+                TextColumn::make('visibility'),
                 TextColumn::make('created_at')->since()->label('Created'),
             ])
             ->filters([
