@@ -46,11 +46,12 @@ class CategoriesResource extends Resource
     {
         return $table
             ->columns([
-               TextColumn::make('id'),
-               TextColumn::make('user_id'),
-               TextColumn::make('cat_name'),
-               TextColumn::make('slug'),
-               TextColumn::make('status'),
+               TextColumn::make('index')->label('SL')->rowIndex()->searchable()->sortable()->toggleable(),
+
+               TextColumn::make('user_id')->searchable()->sortable()->toggleable(),
+               TextColumn::make('cat_name')->searchable()->sortable()->toggleable(),
+               TextColumn::make('slug')->searchable()->sortable()->toggleable(),
+               TextColumn::make('status')->toggleable(),
                TextColumn::make('created_at')->since(),
             ])
             ->filters([

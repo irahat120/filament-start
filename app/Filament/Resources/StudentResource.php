@@ -38,68 +38,56 @@ class StudentResource extends Resource
     {
         return $form
             ->schema([
-                Hidden::make('user_id')->default(fn () => auth()->id()),
-                Section::make("Information")
+                Hidden::make('user_id')->default(fn() => auth()->id()),
+                Section::make('Information')
                     ->collapsed(false)
                     ->schema([
-
                         TextInput::make('name'),
                         TextInput::make('email')->email(),
 
                         Select::make('categories_id')
-                            ->options(Categories::all()->pluck('cat_name','id'))->label('Catagories'),
+                            ->options(Categories::all()->pluck('cat_name', 'id'))
+                            ->label('Catagories'),
                         ColorPicker::make('color'),
                         RichEditor::make('content')->columnSpan(2),
+                    ])
+                    ->columnSpan(3),
 
-                ])->columnSpan(3),
-                
-                Section::make('Profile')->schema([
-                    FileUpload::make('images')->disk('public')->directory('images'),
-                    TagsInput::make('hobbys'),
-                    Checkbox::make('published'),
-                ])->columnSpan(2),
-                
-                
-                
-            ])->columns(5);
+                Section::make('Profile')
+                    ->schema([FileUpload::make('images')->disk('public')->directory('images'), TagsInput::make('hobbys'), Checkbox::make('published')])
+                    ->columnSpan(2),
+            ])
+            ->columns(5);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn (Builder $query) => $query->where('user_id', auth()->user()->id))
+            ->modifyQueryUsing(fn(Builder $query) => $query->where('user_id', auth()->user()->id))
             ->columns([
-                
-                TextColumn::make('id'),
-                TextColumn::make('user_id'),
-                TextColumn::make('name'),
-                TextColumn::make('email'),
-                TextColumn::make('Categories.cat_name'),
-                ColorColumn::make('color'),
+                TextColumn::make('index')->sortable()->searchable()->toggleable()->label('SL')->rowIndex(),
+
+                // TextColumn::make('user_id'),
+                TextColumn::make('name')->sortable()->searchable()->toggleable(),
+                TextColumn::make('email')->sortable()->searchable()->toggleable(),
+                TextColumn::make('Categories.cat_name')->sortable()->searchable()->toggleable(),
+                ColorColumn::make('color')->sortable()->searchable()->toggleable(),
                 ImageColumn::make('images'),
-                TextColumn::make('hobbys')->label('Hobby'),
-                CheckboxColumn::make('published'),
+                TextColumn::make('hobbys')->label('Hobby')->sortable()->searchable()->toggleable(),
+                CheckboxColumn::make('published')->sortable()->searchable()->toggleable(),
             ])
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->actions([Tables\Actions\ViewAction::make(), Tables\Actions\EditAction::make(), Tables\Actions\DeleteAction::make()])
+            ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make()])]);
     }
 
     public static function getRelations(): array
     {
         return [
-            //
-        ];
+                //
+            ];
     }
 
     public static function getPages(): array
