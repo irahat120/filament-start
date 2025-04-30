@@ -32,7 +32,7 @@ class CategoriesResource extends Resource
         return $form
             ->schema([
                 Hidden::make('user_id')->default(fn () => auth()->id()),
-                TextInput::make('cat_name')->label('Categories Name'),
+                TextInput::make('cat_name')->unique()->label('Categories Name'),
                 TextInput::make('slug'),
                 Select::make('status')
                 ->options([

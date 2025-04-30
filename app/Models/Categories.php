@@ -7,7 +7,7 @@ use App\Models\Student;
 
 class Categories extends Model
 {
-    protected $fillable = ['cat_name','slug','user_id', 'status'];
+    protected $fillable = ['user_id', 'cat_name','slug', 'status'];
 
 
 }
