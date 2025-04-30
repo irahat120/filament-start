@@ -2,16 +2,21 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CategoriesResource\Pages;
-use App\Filament\Resources\CategoriesResource\RelationManagers;
-use App\Models\Categories;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
+use App\Models\Categories;
 use Filament\Tables\Table;
+use GuzzleHttp\Promise\Create;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\CategoriesResource\Pages;
+use App\Filament\Resources\CategoriesResource\RelationManagers;
 
 class CategoriesResource extends Resource
 {
@@ -23,7 +28,14 @@ class CategoriesResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Hidden::make('user_id')->default(fn () => auth()->id()),
+                TextInput::make('cat_name')->label('Categories Name'),
+                TextInput::make('slug'),
+                Select::make('status')
+                ->options([
+                    'Active' => 'Active',
+                    'Inactive' => 'Inactive',
+                ])->visibleOn('edit'),
             ]);
     }
 
@@ -31,7 +43,12 @@ class CategoriesResource extends Resource
     {
         return $table
             ->columns([
-                //
+               TextColumn::make('id'),
+               TextColumn::make('user_id'),
+               TextColumn::make('cat_name'),
+               TextColumn::make('slug'),
+               TextColumn::make('status'),
+               TextColumn::make('created_at')->since(),
             ])
             ->filters([
                 //
@@ -39,6 +56,7 @@ class CategoriesResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

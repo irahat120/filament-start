@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('cat_name');
             $table->string('slug');
-            $table->string('status')->default('active');
+            $table->string('status')->default('Active');
             $table->timestamps();
         });
     }
