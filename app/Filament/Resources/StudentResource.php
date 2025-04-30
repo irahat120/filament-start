@@ -67,8 +67,9 @@ class StudentResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => $query->where('user_id', auth()->user()->id))
             ->columns([
-
+                
                 TextColumn::make('id'),
                 TextColumn::make('user_id'),
                 TextColumn::make('name'),
