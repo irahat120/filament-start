@@ -41,16 +41,7 @@ class StudentResource extends Resource
                 Hidden::make('user_id')->default(fn() => auth()->id()),
                 Section::make('Information')
                     ->collapsed(false)
-                    ->schema([
-                        TextInput::make('name'),
-                        TextInput::make('email')->email(),
-
-                        Select::make('categories_id')
-                            ->options(Categories::all()->pluck('cat_name', 'id'))
-                            ->label('Catagories'),
-                        ColorPicker::make('color'),
-                        RichEditor::make('content')->columnSpan(2),
-                    ])
+                    ->schema([TextInput::make('name'), TextInput::make('email')->email(), Select::make('categories_id')->relationship('Categories', 'cat_name')->label('Catagories'), ColorPicker::make('color'), RichEditor::make('content')->columnSpan(2)])
                     ->columnSpan(3),
 
                 Section::make('Profile')
