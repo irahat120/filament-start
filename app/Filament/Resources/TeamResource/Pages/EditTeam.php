@@ -2,8 +2,9 @@
 
 namespace App\Filament\Resources\TeamResource\Pages;
 
-use App\Filament\Resources\TeamResource;
 use Filament\Actions;
+use App\Filament\Resources\TeamResource;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
 
 class EditTeam extends EditRecord
@@ -21,5 +22,12 @@ class EditTeam extends EditRecord
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
+    }
+    protected function getSavedNotification(): ?Notification
+    {
+        return Notification::make()
+            ->success()
+            ->title('Member updated')
+            ->body('The Member has been saved successfully.');
     }
 }

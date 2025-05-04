@@ -60,12 +60,21 @@
                         <div class="card-img">
                             <img loading="lazy" decoding="async" src="{{$team->images}}" alt="Scarlet Pena" class="rounded w-100" width="300" height="332">
                             <ul class="card-social list-inline">
-                                <li class="list-inline-item"><a class="facebook" wire:navigate href="{{$team->fb_url}}"><i class="fab fa-facebook"></i></a>
-                                </li>
-                                <li class="list-inline-item"><a class="twitter" wire:navigate href="{{$team->tw_url}}"><i class="fab fa-twitter"></i></a>
-                                </li>
-                                <li class="list-inline-item"><a class="instagram" wire:navigate href="{{$team->linkin_url}}"><i class="fab fa-instagram"></i></a>
-                                </li>
+                                @if ($team->fb_url != '')
+                                    <li class="list-inline-item"><a target="_blank" class="facebook" href="{{$team->fb_url}}"><i class="fab fa-facebook"></i></a>
+                                    </li>
+                                @endif
+                                @if ($team->tw_url != '')
+                                    <li class="list-inline-item"><a class="twitter" target="_blank" href="{{$team->tw_url}}"><i class="fab fa-twitter"></i></a>
+                                    </li>
+                                @endif
+                                @if ($team->linkin_url != '')
+                                    <li class="list-inline-item"><a class="instagram" target="_blank" href="{{$team->linkin_url}}"><i class="fab fa-instagram"></i></a>
+                                    </li>
+                                @endif
+                                
+                                
+                                
                             </ul>
                         </div>
                         <div class="card-body">
