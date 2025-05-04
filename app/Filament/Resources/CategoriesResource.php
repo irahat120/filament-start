@@ -17,7 +17,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CategoriesResource\Pages;
 use App\Filament\Resources\CategoriesResource\RelationManagers;
-use id;
+
+use Filament\Forms\Set;
+use Illuminate\Support\Str;
 
 class CategoriesResource extends Resource
 {
@@ -31,14 +33,15 @@ class CategoriesResource extends Resource
     {
         return $form
             ->schema([
-                Hidden::make('user_id')->default(fn () => auth()->id()),
-                TextInput::make('cat_name')->unique()->label('Categories Name'),
+                TextInput::make('name')->label('Categories Name')
+                ->live(onBlur: true)
+                ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
                 TextInput::make('slug'),
                 Select::make('status')
                 ->options([
-                    'Active' => 'Active',
-                    'Inactive' => 'Inactive',
-                ])->visibleOn('edit'),
+                    1 => 'Active',
+                    0 => 'Inactive',
+                ]),
             ]);
     }
 
@@ -48,8 +51,7 @@ class CategoriesResource extends Resource
             ->columns([
                TextColumn::make('index')->label('SL')->rowIndex()->searchable()->sortable()->toggleable(),
 
-               TextColumn::make('user_id')->searchable()->sortable()->toggleable(),
-               TextColumn::make('cat_name')->searchable()->sortable()->toggleable(),
+               TextColumn::make('name')->searchable()->sortable()->toggleable(),
                TextColumn::make('slug')->searchable()->sortable()->toggleable(),
                TextColumn::make('status')->toggleable(),
                TextColumn::make('created_at')->since(),
@@ -60,7 +62,7 @@ class CategoriesResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
