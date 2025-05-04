@@ -2,8 +2,9 @@
 
 namespace App\Filament\Resources\TeamResource\Pages;
 
-use App\Filament\Resources\TeamResource;
 use Filament\Actions;
+use App\Filament\Resources\TeamResource;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateTeam extends CreateRecord
@@ -14,4 +15,14 @@ class CreateTeam extends CreateRecord
     {
         return $this->getResource()::getUrl('index');
     }
+
+    protected function getCreatedNotification(): ?Notification
+    {
+        return Notification::make()
+            ->success()
+            ->title('Member Create ')
+            ->body('The Member has been created successfully.');
+    }
+
+    
 }

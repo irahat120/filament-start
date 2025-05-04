@@ -9,7 +9,7 @@ class ShowServicePage extends Component
 {
     public function render()
     {
-        $services = Service::orderby('title','ASC')->get();
+        $services = Service::orderby('title','ASC')->where('status','1')->get();
         return view('livewire.show-service-page',[
             'services' => $services,
         ]);
