@@ -59,6 +59,7 @@
                     <div class="card bg-transparent border-0 text-center">
                         <div class="card-img">
                             <img loading="lazy" decoding="async" src="{{$team->images}}" alt="Scarlet Pena" class="rounded w-100" width="300" height="332">
+                            @if ($team->fb_url != '' || $team->tw_url != '' || $team->linkin_url != '')
                             <ul class="card-social list-inline">
                                 @if ($team->fb_url != '')
                                     <li class="list-inline-item"><a target="_blank" class="facebook" href="{{$team->fb_url}}"><i class="fab fa-facebook"></i></a>
@@ -76,6 +77,8 @@
                                 
                                 
                             </ul>
+                            @endif
+                            
                         </div>
                         <div class="card-body">
                             <h3>{{$team->name}}</h3>

@@ -46,7 +46,7 @@ class StudentResource extends Resource
                         TextInput::make('email')->email(),
 
                         Select::make('categories_id')
-                            ->relationship('Categories','cat_name')
+                            ->relationship('Categories','name')
                             ->label('Catagories'),
                         ColorPicker::make('color'),
                         RichEditor::make('content')->columnSpan(2),
@@ -73,7 +73,7 @@ class StudentResource extends Resource
                 // TextColumn::make('user_id'),
                 TextColumn::make('name')->sortable()->searchable()->toggleable(),
                 TextColumn::make('email')->sortable()->searchable()->toggleable(),
-                TextColumn::make('Categories.cat_name')->sortable()->searchable()->toggleable(),
+                TextColumn::make('Categories.name')->sortable()->searchable()->toggleable(),
                 ColorColumn::make('color')->sortable()->searchable()->toggleable(),
                 ImageColumn::make('images'),
                 TextColumn::make('hobbys')->label('Hobby')->sortable()->searchable()->toggleable(),
