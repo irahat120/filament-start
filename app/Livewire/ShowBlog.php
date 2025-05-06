@@ -12,7 +12,7 @@ class ShowBlog extends Component
 {
     public function render()
     {
-
+        $paginate = 4;
         $cat = Article::select('categories_id')->where('status',1)->get();
         $cat_count = Article::selectRaw('categories_id,count(*) as total')->groupBy('categories_id')->get();
 
@@ -24,10 +24,12 @@ class ShowBlog extends Component
 
         // $categoryIds = Article::where('status', 1)->pluck('categories_id');
         // $categorics = Categories::whereIn('id', $categoryIds)->pluck('name');
-        $blog = Article::where('status',true)->get();
+        $blog = Article::where('status',true)->paginate($paginate);
+        $letestarticals = Article::where('status',true)->orderBy('id','desc')->limit(3)->get();
         return view('livewire.show-blog',[
 
             'blogs' =>$blog,
+            'letestarticals' =>$letestarticals,
             'categories'=>$categorics,
             'counts' =>$cat_count,
         ]);

@@ -59,7 +59,7 @@ class ArticleResource extends Resource
                 TextColumn::make('title')->limit(30),
                 TextColumn::make('author'),
                 TextColumn::make('categories.name'),
-                TextColumn::make('created_at')->datetime('G M y')->label('Created'),
+                TextColumn::make('created_at')->datetime('d M y')->label('Created'),
                 CheckboxColumn::make('status'),
                 
                 
