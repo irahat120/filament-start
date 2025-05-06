@@ -49,8 +49,8 @@
                                     </div>
                                     <div class="pt-4">
                                         <p class="mb-3">{{\Carbon\Carbon::parse($blog->created_at)->format('d M, Y')}}</p>
-                                        <h2 class="h4"><a class="text-black" href="blog-details.html">{{$blog->title}}</a></h2>
-                                        <a href="{{route('blog')}}" class="text-primary fw-bold" aria-label="Read the full article by clicking here">Read More</a>
+                                        <h2 class="h4"><a class="text-black" href="{{route('blogDetils',$blog->id)}}">{{$blog->title}}</a></h2>
+                                        <a href="{{route('blogDetils',$blog->id)}}" class="text-primary fw-bold" aria-label="Read the full article by clicking here">Read More</a>
                                     </div>
                                 </article>
                             </div>
@@ -109,13 +109,13 @@
                         
                             <ul class="list-unstyled widget-list">
                                 <li class="d-flex widget-post align-items-center">
-                                    <a class="text-black" href="/blog/elements/">
+                                    <a class="text-black" href="{{route('blogDetils',$letestblog->id)}}">
                                         <div class="widget-post-image flex-shrink-0 me-3">
                                             <img class="rounded" loading="lazy" decoding="async" src="{{$letestblog->image}}" alt="Post Thumbnail">
                                         </div>
                                     </a>
                                     <div class="flex-grow-1">
-                                        <h5 class="h6 mb-0"><a class="text-black" href="blog-details.html">{{$letestblog->title}}</a></h5>
+                                        <h5 class="h6 mb-0"><a class="text-black" href="{{route('blogDetils',$letestblog->id)}}">{{$letestblog->title}}</a></h5>
                                         <small>{{\Carbon\Carbon::parse($letestblog->created_at)->format('d M, Y')}}</small>
                                     </div>
                                 </li>
