@@ -56,11 +56,12 @@ class ArticleResource extends Resource
         return $table
             ->columns([
                 ImageColumn::make('image'),
-                TextColumn::make('title'),
+                TextColumn::make('title')->limit(30),
                 TextColumn::make('author'),
-                CheckboxColumn::make('status'),
+                TextColumn::make('categories.name'),
                 TextColumn::make('created_at')->datetime('G M y')->label('Created'),
-                TextColumn::make('tags')
+                CheckboxColumn::make('status'),
+                
                 
             ])
             ->filters([
@@ -69,6 +70,7 @@ class ArticleResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

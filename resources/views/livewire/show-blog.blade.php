@@ -50,7 +50,7 @@
                                     <div class="pt-4">
                                         <p class="mb-3">14 Mar, 2020</p>
                                         <h2 class="h4"><a class="text-black" href="blog-details.html">{{$blog->title}}</a></h2>
-                                        <p>{!!Str::limit($blog->content, 100)!!}</p> <a href="blog-details.html" class="text-primary fw-bold" aria-label="Read the full article by clicking here">Read More</a>
+                                        <a href="{{route('blog')}}" class="text-primary fw-bold" aria-label="Read the full article by clicking here">Read More</a>
                                     </div>
                                 </article>
                             </div>
@@ -65,15 +65,16 @@
                         <h5 class="widget-title"><span>Category</span></h5>
                         <ul class="list-unstyled widget-list">
                             @foreach ($counts as $count)                        
-                            @foreach ($categories as $categorie)
-                            	@if ($count->categories_id == $categorie->id)
-                                <li>
-                                    <a href="#!">{{$categorie->name}}<small class="ml-auto">({{$count->total}})</small></a>
-                                </li>
-                                @endif
-                            
-                            @endforeach
+                                @foreach ($categories as $categorie)
+                                    @if ($count->categories_id == $categorie->id)
+                                    <li>
+                                        <a href="#!">{{$categorie->name}}<small class="ml-auto">({{$count->total}})</small></a>
+                                    </li>
+                                    @endif
+                                
+                                @endforeach
                             @endforeach	
+                            
                         </ul>
                     </div>
                     <!-- tags -->

@@ -13,8 +13,9 @@ class ViewArticle extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\ViewAction::make(),
+            // Actions\ViewAction::make(),
             Actions\EditAction::make(),
+            Actions\DeleteAction::make(),
             Actions\CreateAction::make(),
             
 

@@ -19,7 +19,6 @@ class ShowBlog extends Component
         
 
 
-
         $categorics = Categories::select('name','id')->whereIn('id',$cat)->get();
 
 
@@ -29,7 +28,6 @@ class ShowBlog extends Component
         return view('livewire.show-blog',[
 
             'blogs' =>$blog,
-
             'categories'=>$categorics,
             'counts' =>$cat_count,
         ]);

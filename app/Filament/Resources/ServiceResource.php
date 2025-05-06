@@ -43,10 +43,10 @@ class ServiceResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id'),
-                TextColumn::make('title'),
-                TextColumn::make('short_desc')->label('Short description')->limit(30),
-                TextColumn::make('status'),
+                TextColumn::make('id')->searchable()->sortable()->toggleable(),
+                TextColumn::make('title')->searchable()->sortable()->toggleable(),
+                TextColumn::make('short_desc')->searchable()->sortable()->toggleable()->label('Short description')->limit(30),
+                TextColumn::make('status')->searchable()->sortable()->toggleable(),
             ])
             ->filters([
                 //
@@ -54,7 +54,7 @@ class ServiceResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
