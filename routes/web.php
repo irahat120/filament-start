@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\BlogDetils;
+use App\Livewire\Showabout;
 use App\Livewire\ShowBlog;
 use App\Livewire\ShowFaq;
 use App\Livewire\ShowHome;
@@ -21,3 +22,4 @@ Route::get('/teams',ShowTeam::class)->name('teams');
 Route::get('/articles',ShowBlog::class)->name('blog');
 Route::get('/blog/{id}',BlogDetils::class)->name('blogDetils');
 Route::get('/faqs',ShowFaq::class)->name('faq');
+Route::get('/about-us',Showabout::class)->name('about');

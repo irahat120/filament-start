@@ -2,35 +2,40 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\FaqResource\Pages;
-use App\Filament\Resources\FaqResource\RelationManagers;
-use App\Models\Faq;
+use App\Filament\Resources\AboutUsResource\Pages;
+use App\Filament\Resources\AboutUsResource\RelationManagers;
+use App\Models\AboutUs;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\CheckboxColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class FaqResource extends Resource
+class AboutUsResource extends Resource
 {
-    protected static ?string $model = Faq::class;
+    protected static ?string $model = AboutUs::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';
+    protected static ?string $navigationIcon = 'heroicon-o-cursor-arrow-ripple';
+    protected static ?string $modelLabel = 'About';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('question')->required(),
-                RichEditor::make('answer')->required(),
-                Checkbox::make('status')->label('Published'),
+                TextInput::make('name'),
+                RichEditor::make('content'),
+                FileUpload::make('image')->disk('public')->directory('images'),
+                Checkbox::make('status'),
             ])->columns(1);
     }
 
@@ -38,8 +43,8 @@ class FaqResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('index')->label('SL')->rowIndex(),
-                TextColumn::make('question')->label('title'),
+                TextColumn::make('name'),
+                ImageColumn::make('image'),
                 CheckboxColumn::make('status'),
             ])
             ->filters([
@@ -67,10 +72,10 @@ class FaqResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListFaqs::route('/'),
-            'create' => Pages\CreateFaq::route('/create'),
-            'view' => Pages\ViewFaq::route('/{record}'),
-            'edit' => Pages\EditFaq::route('/{record}/edit'),
+            'index' => Pages\ListAboutUs::route('/'),
+            'create' => Pages\CreateAboutUs::route('/create'),
+            'view' => Pages\ViewAboutUs::route('/{record}'),
+            'edit' => Pages\EditAboutUs::route('/{record}/edit'),
         ];
     }
 }
