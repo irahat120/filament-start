@@ -63,15 +63,14 @@
 				<div class="footer-widget">
 					<h5 class="mb-4 text-primary font-secondary">Service</h5>
 					<ul class="list-unstyled">
-						<li class="mb-2"><a href="service-details.html">Digital Marketing</a>
-						</li>
-						<li class="mb-2"><a href="service-details.html">Web Design</a>
-						</li>
-						<li class="mb-2"><a href="service-details.html">Logo Design</a>
-						</li>
-						<li class="mb-2"><a href="service-details.html">Graphic Design</a>
-						</li>
-						<li class="mb-2"><a href="service-details.html">SEO</a>
+						@php
+						use Illuminate\Support\Facades\DB;
+							$users = DB::table('services')->limit(5)->get();
+						@endphp
+				
+						@foreach($users as $user)
+							<li class="mb-2"><a href="service/{{$user->id}}">{{ $user->title }}</a></li>
+						@endforeach
 						</li>
 					</ul>
 				</div>
@@ -84,9 +83,9 @@
 						</li>
 						<li class="mb-2"><a href="#!">Contact Us</a>
 						</li>
-						<li class="mb-2"><a href="#!">Blog</a>
+						<li class="mb-2"><a href="{{route('blog')}}">Blog</a>
 						</li>
-						<li class="mb-2"><a href="#!">Team</a>
+						<li class="mb-2"><a href="{{route('teams')}}">Team</a>
 						</li>
 					</ul>
 				</div>
