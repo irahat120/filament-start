@@ -36,21 +36,22 @@
     
     <section class="section">
         <div class="container">
+            <h2 class="text-primary text-center text-uppercase fw-bold mb-3">About Us</h2>
             @foreach ($about_us as $about)
                 <div class="row justify-content-center align-items-center">
                     <div class="col-lg-7">
                         <div class="section-title">
-                            <p class="text-primary text-uppercase fw-bold mb-3">About Us</p>
+                            
                             <h2 class="h1 mb-4">{{$about->name}}</h2>
                             <div class="content pe-0 pe-lg-5">
-                                <p>{!!$about->content!!}</p>
+                                <p>{!!$about->content!!} <hr></p>
                                 
                             </div>
                             
                         </div>
                     </div>
                     <div class="col-lg-4 mt-5 mt-lg-0">
-                        <img loading="lazy" decoding="async" src="{{$about->image}}" alt="Business Loans &lt;br&gt; For Daily Expenses" class="rounded w-100">
+                        <img loading="lazy" decoding="async" src="{{$about->image}}" alt="Business Loans &lt;br&gt; For Daily Expenses" class="rounded w-100">  
                     </div>
                 </div>
             @endforeach
